@@ -11,35 +11,33 @@ const inputBtn = () => {
 
     fetch(url)
         .then(res => res.json())
-        .then(data => displayBookList(data.docs[0]))
+        .then(data => displayBookList(data.docs))
 
 }
 
 const displayBookList = bookData => {
-    console.log(bookData)
-    const bookList = document.getElementById('bookListId');
-    // clear field data
-    //boolList.innerHTML='';
+    const bookListId = document.getElementById('bookListId');
+    bookListId.textContent = '';
 
-    bookData.forEach(bookInfo => {
+    bookData.forEach(bookList => {
+        // console.log(bookList)
 
         const bookListDiv = document.createElement('div');
         bookListDiv.classList.add('col');
         bookListDiv.innerHTML = `
-    
-        
-            <div class="card h-100">
-                <img src="https://covers.openlibrary.org/b/id/${bookInfo.cover_i}-M.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h2 class="card-title">Book Name</h2>
-                        <p class="card-text">Icon <span>${bookInfo.author_name[0]}</span></p>
-                        <p class="card-text">Icon <span>${bookInfo.language[0]}</span></p>
-                        <p class="card-text">Icon <span>${bookInfo.publish_date[0]}</span></p>
-                        
-                    </div>
-            </div>
-                
-    `});
-    bookList.appendChild(bookListDiv);
+        <div class="card h-100">
+        <img src="https://covers.openlibrary.org/b/id/${bookList.cover_i}-M.jpg" class="card-img-top h-50" alt="...">
+            <div class="card-body mt-2">
+            
+            <h5><i class="fas fa-book icon"></i> <span class="cardText">${bookList.title}</span></h5>
+            
+            <h5><i class="fas fa-user icon"></i> <span class="cardText">${bookList.author_name}</span></h4>
+            
+            <h5><i class="fas fa-clock icon"></i> <span class="cardText">${bookList.publish_year}</span></h5>
 
+            </div>
+    </div>
+`
+        bookListId.appendChild(bookListDiv);
+    })
 }
